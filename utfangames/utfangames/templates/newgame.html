@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center" style="height: 700px">
+        <div class="align-self-center grey" style="height: 500px;width: 400px">
+            <h1 class="text-center">上传新游戏</h1>
+            <form action={{url_for("newgame")}} method="post" enctype="multipart/form-data">
+                <p class="text-center">游戏名：<input name="name" /></p>
+                <p class="text-center">游戏文件：<input name="file" type="file" /></p>
+                <p class="text-center">截图（仅限一张）：<input name="image" type="file" /></p>
+                <p class="text-center"><textarea name="intro" rows=10 cols=30>游戏介绍……</textarea></p>
+                <p class="text-center"><button type="submit">上传</button></p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

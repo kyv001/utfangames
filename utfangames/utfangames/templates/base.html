@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <!-- Bootstrap和jQuery -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <!-- 自定义css -->
+    <link href="../static/css/utfangames.css" rel="stylesheet" />
+
+    {% if title %}
+    <title>{{title}} - Undertale fan games</title>
+    {% else %}
+    <title>Undertale fan games</title>
+    {% endif %}
+
+    {% block head %}
+    {% endblock head %}
+</head>
+
+<body>
+    {% if session.get("name") %}
+    <p>你好，{{session.get("name")}}！<a href={{url_for("logout")}}>注销</a></p>
+    {% else %}
+    <p>你好，Chara！</p>
+    {% endif %}
+    <div class="text-center">
+        <span class="monster-friend h1">UNDERTALE</span>
+        <span class="determination h1">Fan games</span>
+    </div>
+    <ul class="nav nav-tabs navbar-fixed-top">
+        <li class="nav-item"><a class="nav-link" href="/">主页</a></li>
+        {% if session.get("name") %}
+        <li class="nav-item"><a class="nav-link" href={{url_for("user", id=session["id"])}}>用户</a></li>
+        <li class="nav-item"><a class="nav-link" href={{url_for("newgame")}}>新游戏</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href={{url_for("login")}}>登录</a></li>
+        {% endif %}
+        <li class="nav-item"><a class="nav-link" href="#">搜索</a></li>
+    </ul>
+    {% block body %}
+    {% endblock body %}
+</body>
+</html>

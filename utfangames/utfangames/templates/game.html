@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block body %}
+<img src={{"../static/users/{}/games/{}/{}".format(game.author.name, game.name, game.imgpath.split(os.sep)[-1])}}
+     sizes="auto" />
+<p class="card-text">{{game.intro}}</p>
+<p class="card-text">作者：<a href={{url_for("user", id=game.author.id)}}>{{game.author.name}}</a></p>
+<p class="card-text"><a href={{url_for("download", id=game.id)}}>下载</a></p>
+{% endblock body%}

@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Monster Friend';
+    src: url('../fonts/MonsterFriend.otf')
+}
+@font-face {
+    font-family: 'Determination';
+    src: url('../fonts/Determination.ttf')
+}
+@font-face {
+    font-family: 'Zpix';
+    src: url('../fonts/Zpix.ttf')
+}
+
+.monster-friend {
+    font-family: 'Monster Friend';
+}
+.determination {
+    font-family: 'Determination';
+}
+.nav {
+    background-color: #202020
+}
+.grey {
+    background-color: grey;
+}
+
+body {
+    background-color: #0F0F0F;
+    font-family: 'Zpix';
+    color: #FFFFFF
+}

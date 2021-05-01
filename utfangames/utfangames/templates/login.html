@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center" style="height: 500px">
+        <div class="align-self-center grey" style="height: 250px;width: 400px">
+            <h1 class="text-center">登录</h1>
+            <form action={{url_for("login")}} method="post">
+                <p class="text-center">用户名：<input name="name" type="text" /></p>
+                <p class="text-center">密码：<input name="password" type="password" /></p>
+                <p class="text-center">
+                    <button type="submit">登录</button>
+                    <small>没有账号？去<a href={{url_for("signup")}}>注册</a></small>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
