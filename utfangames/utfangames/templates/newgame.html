@@ -5,6 +5,9 @@
     <div class="row justify-content-center" style="height: 700px">
         <div class="align-self-center grey" style="height: 500px;width: 400px">
             <h1 class="text-center">上传新游戏</h1>
+            {% if err %}
+            <div class="alert alert-danger" role="alert">{{err}}</div>
+            {% endif %}
             <form action={{url_for("newgame")}} method="post" enctype="multipart/form-data">
                 <p class="text-center">游戏名：<input name="name" /></p>
                 <p class="text-center">游戏文件：<input name="file" type="file" /></p>

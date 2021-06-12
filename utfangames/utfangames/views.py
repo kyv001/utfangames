@@ -12,7 +12,9 @@ import os
 def home():
     return render_template("index.html",
                            games=Game.query.all(),
-                           os=os)
+                           os=os,
+                           math=__import__("math"),
+                           len=len)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -20,6 +22,8 @@ def login():
         author = Author.query.filter_by(
             name=request.form.get("name"),
             password=request.form.get("password"))
+        if len(list(author)) == 0:
+            return render_template("login.html", err="用户名或密码不正确！")
         session["id"] = author[0].id
         session["name"] = author[0].name
         return redirect(url_for('home'))
@@ -28,6 +32,11 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
+        # 测试有没有重名
+        author = Author.query.filter_by(
+            name=request.form.get("name"))
+        if len(list(author)) > 0:
+            return render_template("signup.html", err="用户名已存在！")
         new_author = Author()
         new_author.name = request.form.get("name")
         new_author.password = request.form.get("password")
@@ -57,6 +66,11 @@ def logout():
 def newgame():
     if request.method == 'POST':
         if session.get("id"):
+            # 测试有没有重名
+            game = Game.query.filter_by(
+                name=request.form.get("name"))
+            if len(list(game)) > 0:
+                return render_template("newgame.html", err="游戏名已存在！")
             newgame = Game()
             newgame.author_id = session["id"]
             newgame.intro = request.form.get("intro")
