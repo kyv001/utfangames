@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block body %}
+<!-- 显示所有搜索的游戏 -->
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <form action={{url_for("search")}} method="get">
+                <div class="input-group">
+                    {% if value %}
+                    <input type="text" class="form-control" placeholder="搜索内容……" name="value" value={{value}} />
+                    {% else %}
+                    <input type="text" class="form-control" placeholder="搜索内容……" name="value" />
+                    {% endif %}
+                    <span class="input-group-btn">
+                        <button class="btn btn-default grey" type="submit">搜索</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if games %}
+    {% for _ in range(1, math.ceil(len(games) // 3) + 3) %}
+    <div class="row">
+        {% for game in games[3 * (_ - 1):3 * _]%}
+        <div class="col-md-4">
+            <div class="card grey">
+                <img class="card-img-top"
+                     src={{"../static/users/{}/games/{}/{}".format(game.author.name, game.name, game.imgpath.split(os.sep)[-1])}}
+                     alt="游戏截图"
+                     sizes="auto" />
+                <div class="card-body">
+                    <h6 class="card-text">{{game.name}}</h6>
+                    <p class="card-text">{{game.intro[:6]}}...</p>
+                    <p class="card-text">作者：<a href={{url_for("user", id=game.author.id)}}>{{game.author.name}}</a></p>
+                    <p class="card-text"><a href={{url_for("game", id=game.id)}}>详情</a></p>
+                    <p class="card-text"><a href={{url_for("download", id=game.id)}}>下载</a></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% elif value %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>没有搜索到相应结果哦</h1>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>键入关键字以搜索！</h1>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock body %}

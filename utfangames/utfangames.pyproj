@@ -58,6 +58,7 @@
     <Content Include="utfangames\templates\newgame.html" />
     <Content Include="utfangames\templates\index.html" />
     <Content Include="utfangames\templates\login.html" />
+    <Content Include="utfangames\templates\search.html" />
     <Content Include="utfangames\templates\signup.html" />
     <Content Include="utfangames\templates\user.html" />
   </ItemGroup>
