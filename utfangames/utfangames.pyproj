@@ -21,7 +21,9 @@
     <RootNamespace>utfangames</RootNamespace>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <IsWindowsApplication>False</IsWindowsApplication>
-    <CommandLineArguments>start</CommandLineArguments>
+    <CommandLineArguments>
+    </CommandLineArguments>
+    <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
