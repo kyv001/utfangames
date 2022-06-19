@@ -73,6 +73,9 @@ def newgame():
                 name=request.form.get("name"))
             if len(list(game)) > 0:
                 return render_template("newgame.html", err="游戏名已存在！", title="创建新游戏")
+            # 测试有没有图片传进来
+            if not request.files["image"]:
+                return render_template("newgame.html", err="请选择封面图！", title="创建新游戏")
             newgame = Game()
             newgame.author_id = session["id"]
             newgame.intro = request.form.get("intro")
@@ -130,20 +133,23 @@ def user(id):
 @app.route("/delete/<id>")
 def delete(id):
     if session.get("id"):
-        game = Game.query.get(id)
+        game = Game.query.get(int(id.split("_")[0]))
         if game.author.id == session.get("id"):
             db.session.delete(game)
             db.session.commit()
             dirpath = os.path.join(
                 os.getcwd(),
-                "utfangames/static/users/{}/games".replace('/', os.sep).format(
-                    session.get("name")
+                "utfangames/static/users/{}/games/{}/".replace('/', os.sep).format(
+                    session.get("name"),
+                    game.name
                     ))
             for root, dirs, files in os.walk(dirpath, topdown=False):
                 for name in files:
                     os.remove(os.path.join(root, name))
                 for name in dirs:
                     os.rmdir(os.path.join(root, name))
+            print(dirpath[:-1], "\a")
+            os.rmdir(dirpath)
  
             # os.walk的第一个参数是要遍历并删除子文件夹和文件的目录
             # 上面的代码运行后，文件夹"1"里的文件夹和文件全被删除，但是文件夹"1"还存在
